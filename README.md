@@ -1,7 +1,6 @@
-# zsl-acoustic-monitoring-scripts
+# Acoustic classification scripts
 Model library for classification of acoustic monitoring data at ZSL, including Colab notebooks for classifying data. Current models include:
 
-- BirdNet
-- CityNet
-- BatDetect
-- Future addition (Yamnet?)
+- [BirdNet](https://github.com/kahst/BirdNET-Analyzer) - for classifying bird species (predominantly European and American species)
+- [CityNet](https://github.com/mdfirman/CityNet) - for estimating the level of biotic and anthropogenic sound in urban landscapes
+- [BatDetect](https://github.com/macaodha/batdetect) - classifying presence of bats in sound files, not to species level
