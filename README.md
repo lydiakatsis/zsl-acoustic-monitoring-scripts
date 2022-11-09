@@ -15,4 +15,4 @@ Google Cloud's Vertex AI services will allow you to run Jupyter Notebooks within
 - Navigate to the Vertex AI workbench, and enable the API if not already done
 - From within the workbench, select 'User managed notebook' and create a new one. (Note: this is not the same as the Managed Notebook, and some services won't work as nicely, so reccomend to stick to this for now)
     - Follow instructions, set area to your closest location
-    - If using Te  
+
