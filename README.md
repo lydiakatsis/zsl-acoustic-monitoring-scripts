@@ -37,7 +37,7 @@ Instructions for running notebooks within Vertex AI:
         - CityNet - select 1 GPU and Tensorflow 2.8 environment
         - BirdNet - No GPUs, 16 CPUs and Tensorflow 2.8 environment
 3. Open JupyterLab
-4. Download the .ipynb script from this repository that you want to use, and drag it into the finder on the JupyterLab screen
+4. Download the .ipynb script that you want to use from this repository , and drag it into the finder on the JupyterLab screen
 5. Open the notebook, and follow the instructions within.
 
 # Handy Vertex AI Notebook commands #
@@ -52,5 +52,5 @@ Instructions for running notebooks within Vertex AI:
    
 - You can copy anything from your Google Cloud bucket into your notebook directory, or vice versa using Gcloud storage commands, e.g.: <br/>
 
-   ``` ```
+   ``` !gcloud storage cp -r 'gs://data-processing-scripts/batdetect_v3-master/' . ```
 
