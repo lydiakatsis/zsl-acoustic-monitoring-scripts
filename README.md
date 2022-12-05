@@ -22,7 +22,7 @@ Instructions for running notebooks within Vertex AI:
 ## Opening an existing notebook ##
 1. Navigate to Vertex AI workbench
 2. There are existing workbooks for running citynet, birdnet, and bat detect as shown above.
-3. Select 'Open JupyterLab' next to the notebook to open it and use it.
+3. Select 'Open JupyterLab' next to the notebook to open it and use it (this will take a minute or two to start the instance)
 4. When you are finished using it, stop the instance by selecting the box next to the notebook, and then pressing stop.
 5. If the notebooks above aren't there, then start a new notebook following instructions below.
 
@@ -36,9 +36,21 @@ Instructions for running notebooks within Vertex AI:
         - BatDetect - select 1 GPU, and PyTorch environment
         - CityNet - select 1 GPU and Tensorflow 2.8 environment
         - BirdNet - No GPUs, 16 CPUs and Tensorflow 2.8 environment
+3. Open JupyterLab
+4. Download the .ipynb script from this repository that you want to use, and drag it into the finder on the JupyterLab screen
+5. Open the notebook, and follow the instructions within.
+
+# Handy Vertex AI Notebook commands #
+
 - Within the notebook, you can mount the files stored in the Google Cloud Bucket using the following command (replacing 'bucket_name' with the name of your bucket):<br/>
  
    ``` !mountpoint -q /home/jupyter/gcs && echo "mounted" || gcsfuse --implicit-dirs --rename-dir-limit=100 --disable-http2 --max-conns-per-host=100 bucket_name                 "/home/jupyter/gcs" ```
    
    Once mounted, you can now access the bucket files as if they are in your local directory.
+   
+   
+   
+- You can copy anything from your Google Cloud bucket into your notebook directory, or vice versa using Gcloud storage commands, e.g.: <br/>
+
+   ``` ```
 
