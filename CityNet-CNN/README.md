@@ -2,6 +2,9 @@
 
 This script will load in each audio file one by one, and classify the anthopogenic sound levels, then output a csv for each file with the mean anthroppgenic sound level.
 Then it will reload each audio file again, and perform the classifications for the biotic sound. Currently this script is quite slow, as separate loading of audio files takes 10-15 seconds each time.
+
+The notebook may periodically become unresponsive while running this scrip - if this happens, simply restart the notebook, and it will continue making classifications after where it left off.
+
 <br/><br/>
 
 Results will be saved to **gs://acoustic-processing-outputs/city-net/FOLDERNAME/././.csv**
