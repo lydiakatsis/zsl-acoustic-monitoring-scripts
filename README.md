@@ -14,12 +14,17 @@ Google Cloud's Vertex AI services will allow you to run Jupyter Notebooks within
 
 **Ensure you stop the notebook when you are finished using it otherwise it will charge for the entire time it is not stopped, regardless of whether you are using it**
 
+![Screenshot 2022-12-05 at 10 35 38](https://user-images.githubusercontent.com/72734966/205617615-db47b28c-90c7-4326-9bc2-934babf92580.png)
+
+
 Instructions for running notebooks within Vertex AI:
 
 ## Opening an existing notebook ##
 1. Navigate to Vertex AI workbench
-2. There are existing workbooks for running citynet, birdnet, and bat detect.
-3. 
+2. There are existing workbooks for running citynet, birdnet, and bat detect as shown above.
+3. Select 'Open JupyterLab' next to the notebook to open it and use it.
+4. When you are finished using it, stop the instance by selecting the box next to the notebook, and then pressing stop.
+5. If the notebooks above aren't there, then start a new notebook following instructions below.
 
 
 ## Starting a new notebook ##
