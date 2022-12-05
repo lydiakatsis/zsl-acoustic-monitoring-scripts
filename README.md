@@ -21,5 +21,5 @@ Google Cloud's Vertex AI services will allow you to run Jupyter Notebooks within
         - BirdNet - No GPUs, 16 CPUs and Tensorflow 2.8 environment
 - Within the notebook, you can mount the files stored in the Google Cloud Bucket using the following command:<br/><br/>
  
- ``` rfwjfj ```
+ ``` !mountpoint -q /home/jupyter/gcs && echo \"mounted\" || gcsfuse --implicit-dirs --rename-dir-limit=100 --disable-http2 --max-conns-per-host=100 bucket_name \"/home/jupyter/gcs\ ```
 
