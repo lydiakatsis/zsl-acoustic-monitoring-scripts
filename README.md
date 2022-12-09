@@ -1,3 +1,16 @@
+Repository for classification algorithms and scripts used for ZSL MTP ARU deployments.  
+
+# Contents
+   1.  [Data upload tips](#data-upload)
+   2.  [Classification algorithms](#acoustic-classification-scripts) 
+   3.  [Validation scripts](#validation-scripts)
+   4.  [Options to run the scripts](#script-options)
+         * [Vertex AI](#running-notebooks-in-gcp-using-vertex-ai)
+         * [Google Colab](#google-colab)
+
+# Data upload
+
+
 # Acoustic classification scripts
 Model library for classification of acoustic monitoring data at ZSL, including Colab notebooks for classifying data. Current models include:
 
@@ -5,9 +18,12 @@ Model library for classification of acoustic monitoring data at ZSL, including C
 - [CityNet](https://github.com/mdfirman/CityNet) - for estimating the level of biotic and anthropogenic sound in urban landscapes
 - [BatDetect](https://github.com/macaodha/batdetect) - classifying presence of bats in sound files, not to species level
 
+# Validation scripts
 
-# Image classification
-- [Megadetector](https://github.com/microsoft/CameraTraps/blob/main/detection/megadetector_colab.ipynb) - classifying camera trap images
+
+# Script optons
+These scripts are all written in Python and can be run from the command line as python files
+
 
 # Running notebooks in GCP using Vertex AI
 Google Cloud's Vertex AI services will allow you to run Jupyter Notebooks within the cloud, utilising the cloud resources, and accessing the data stored in your GC bucket. 
@@ -40,7 +56,7 @@ Instructions for running notebooks within Vertex AI:
 4. Download the .ipynb script that you want to use from this repository , and drag it into the finder on the JupyterLab screen
 5. Open the notebook, and follow the instructions within.
 
-# Handy Vertex AI Notebook commands #
+## Handy Vertex AI Notebook commands ##
 
 - Within the notebook, you can mount the files stored in the Google Cloud Bucket using the following command (replacing 'bucket_name' with the name of your bucket):<br/>
  
@@ -54,3 +70,4 @@ Instructions for running notebooks within Vertex AI:
 
    ``` !gcloud storage cp -r 'gs://data-processing-scripts/batdetect_v3-master/' . ```
 
+# Google Colab #
