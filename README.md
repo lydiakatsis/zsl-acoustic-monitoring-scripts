@@ -79,16 +79,17 @@ Instructions for running notebooks within Vertex AI:
 
 ## Starting a new notebook ##
 
-1. Navigate to the Vertex AI workbench, and enable the API if not already done
-2. From within the workbench, select 'User managed notebook' and create a new one. (Note: this is not the same as the Managed Notebook, and some services won't work - e.g. accessing Cloud Storage)
+1. Open Google Cloud console in web browser: https://console.cloud.google.com/ 
+2. Navigate to the Vertex AI workbench, and enable the API if not already done
+3. From within the workbench, select 'User managed notebook' and create a new one. (Note: this is not the same as the Managed Notebook, and some services won't work - e.g. accessing Cloud Storage)
     * Follow instructions, set area to your closest location
     * Selection of compute resources depends on the script you will run - below options have good performance for these scripts:
         - BatDetect - select 1 GPU, and PyTorch environment
         - CityNet - select 1 GPU and Tensorflow 2.8 environment
         - BirdNet - No GPUs, 16 CPUs and Tensorflow 2.8 environment
-3. Open JupyterLab
-4. Download the .ipynb script that you want to use from this repository , and drag it into the finder on the JupyterLab screen
-5. Open the notebook, and follow the instructions within.
+4. Open JupyterLab
+5. Download the .ipynb script that you want to use from this repository , and drag it into the finder on the JupyterLab screen
+6. Open the notebook, and follow the instructions within.
 
 ## Handy Vertex AI Notebook commands ##
 
