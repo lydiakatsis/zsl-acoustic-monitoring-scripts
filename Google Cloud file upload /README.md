@@ -2,9 +2,14 @@
 
 We will use the gcloud SDK tools for transfering data to our Google Buckets - this tool is very efficient, and automatically splits up the files into smaller chunks for transfer. Additionally, if the transfer is stopped for any reason such as a cut in internet, or the computer is turned off, it can easily be resumed - it will simply look at the differences between the two directories and resume copying from where it left off.
 
-***These instructions all assume you are typing directly into your computer terminal, if you wish to execute them from within a python environment, e.g. a JupyterNotebook, then just insert '!' before each command.***
+# Contents
+1. [Run from Terminal](#terminal-commands)
+2. [Run from Colab](#colab-commands)
 
-# Set up
+
+***These instructions all assume you are typing directly into your computer terminal, if you wish to execute them from within a python environment, e.g. a JupyterNotebook, then just insert '!' before each command.***
+# Terminal commands
+## Set up
 
 Step 1:
 Set up requires downloading the Google Cloud SDK from [here](https://cloud.google.com/sdk/docs/install) 
@@ -22,7 +27,7 @@ gcloud init
 
 * Choose a default Compute Engine zone if prompted. (London is europewest-2)
 
-# Copying files from a local drive to your Google Bucket
+## Copying files from a local drive to your Google Bucket
 
 You can use the Google Cloud User interface to create a new Bucket for your project, or select an existing Bucket. The path to your bucket will be the following:
 
@@ -46,7 +51,7 @@ gcloud storage cp -r '/path/to/data/*/*/' gs://nr-acoustic-data/
 ```
 
 
-# Example
+## Example
 
 This is how I coped all the .WAV files only from my hardrive into the bucket. Note - the folder hierarchy dissappears with this command and all .WAV files are placed directly into the bucket: e.g. gs://bucket/123.WAV
 
@@ -59,3 +64,18 @@ This is how I copied all the folder directories within my external hardrive into
 ```
 gcloud storage cp -r '/Volumes/T7_Touch/ZSL/Data/*/*/' gs://nr-acoustic-data/
 ```
+
+# Colab commands
+
+```
+from google.colab import auth
+auth.authenticate_user()
+project_id = 'effortless-lock-365114'  # Set this to your project ID
+!gcloud config set project {project_id}
+!gsutil ls # Check that buckets appear here 
+
+# Copy entire folder and all directory structure
+!gcloud storage cp -r '/Volumes/T7_Touch/ZSL/Data/*/*/' gs://nr-acoustic-data/
+
+```
+
