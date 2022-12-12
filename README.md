@@ -1,4 +1,4 @@
-Repository for classification algorithms and scripts used for ZSL MTP ARU deployments.  
+Repository for classification algorithms and scripts used for ZSL Monitoring and Technology Prgoram ARU deployments.  
 
 # Contents
    1.  [Data upload tips](#data-upload)
@@ -9,21 +9,55 @@ Repository for classification algorithms and scripts used for ZSL MTP ARU deploy
          * [Google Colab](#google-colab)
 
 # Data upload
+## File hierarchy
+* Store raw data and outputs in 2 separate locations
 
+Raw data:
+* Raw data upload follows the hierarchy and folder naming of:
+   * {raw data bucket} = nr-acoustic-data
+      * Subfolder = project+year e.g. [nr-2021]
+         * Metadata
+            * csv with lat long, and deployment details
+         * Config e.g. [bat-config]
+            * SD card name [e.g. MSD-10]
+               * .WAV files 
+
+Outputs:
+* {Outputs bucket} = processing-outputs
+   * Model folder [e.g. birdnet]
+      * Project+year [e.g. nr-2021]
+         * SD card name
+            * Csvs of results
+
+## GCP buckets
+For uploading data from SD cards / Hard drive to Google Cloud bucket, use the GCloud storage tool, following instructions [here](https://github.com/lydiakatsis/zsl-acoustic-monitoring-scripts/tree/main/Google%20Cloud%20file%20upload%20)
 
 # Acoustic classification scripts
+## Outline
+Collection of machine learning classifiers that will process the raw acoustic data and perform classifications. Results will be output to csv files in a separate output directory. Subsequent validation of results is essential.
+
+## Model library
 Model library for classification of acoustic monitoring data at ZSL, including Colab notebooks for classifying data. Current models include:
 
 - [BirdNet](https://github.com/kahst/BirdNET-Analyzer) - for classifying bird species (predominantly European and American species)
 - [CityNet](https://github.com/mdfirman/CityNet) - for estimating the level of biotic and anthropogenic sound in urban landscapes
 - [BatDetect](https://github.com/macaodha/batdetect) - classifying presence of bats in sound files, not to species level
 
-# Validation scripts
+# Validation
+Manual validation of machine learning results is essential. We have scripts for 2 general approaches for validation:
 
+1. Check a random sample of 'positive' results for each species
+   * This gives general level of uncertainty
+   * May then move forward with machine learning outputs with high level of certainty for anaylses such as relative detection rates utilising all unverified results above chosen threshold  
+   * Script selects random 50 sound samples classified as each species, and presents spectrogram and sound for checking. Verifications are input into a csv.
+
+2. Top-down listening at each AudioMoth site
+   * This confirms presence of each species at each site for spatial distribution of occurrence
+   * For occupancy modeling would need to do this at intervals
+   * Scripts selects all sites with species x classification above a chosen threshold, and then orders classifications for each site from highest score to lowest. Listen to the files until confirm presence for that site, then move on to the next site. Results output to a csv.
 
 # Script optons
-These scripts are all written in Python and can be run from the command line as python files
-
+These scripts are all written in Python and can be run from the command line as python files, from Google Colab, or from Vertex AI in GCP.
 
 # Running notebooks in GCP using Vertex AI
 Google Cloud's Vertex AI services will allow you to run Jupyter Notebooks within the cloud, utilising the cloud resources, and accessing the data stored in your GC bucket. 
@@ -48,7 +82,7 @@ Instructions for running notebooks within Vertex AI:
 1. Navigate to the Vertex AI workbench, and enable the API if not already done
 2. From within the workbench, select 'User managed notebook' and create a new one. (Note: this is not the same as the Managed Notebook, and some services won't work - e.g. accessing Cloud Storage)
     * Follow instructions, set area to your closest location
-    * Selection of compute resources depends on the script you will run:
+    * Selection of compute resources depends on the script you will run - below options have good performance for these scripts:
         - BatDetect - select 1 GPU, and PyTorch environment
         - CityNet - select 1 GPU and Tensorflow 2.8 environment
         - BirdNet - No GPUs, 16 CPUs and Tensorflow 2.8 environment
@@ -71,3 +105,20 @@ Instructions for running notebooks within Vertex AI:
    ``` !gcloud storage cp -r 'gs://data-processing-scripts/batdetect_v3-master/' . ```
 
 # Google Colab #
+
+Mounting GC bucket to Colab session:
+
+```!echo "deb http://packages.cloud.google.com/apt gcsfuse-bionic main" > /etc/apt/sources.list.d/gcsfuse.list
+!curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+!apt -qq update
+!apt -qq install gcsfuse
+
+from google.colab import auth
+
+# Authtication and PROJECT_ID allocation
+auth.authenticate_user()
+PROJECT_ID = "zsl-acoustic-pipeline"
+
+!mountpoint -q /content/gcs_raw && echo "mounted" || mkdir -p gcs_raw; gcsfuse --implicit-dirs --rename-dir-limit=100 --disable-http2 --max-conns-per-host=100 "acoustic-data-raw" "/content/gcs_raw"
+!mountpoint -q /content/gcs_outputs && echo "mounted" || mkdir -p gcs_outputs; gcsfuse --implicit-dirs --rename-dir-limit=100 --disable-http2 --max-conns-per-host=100 "acoustic-processing-outputs" "/content/gcs_outputs"
+```
