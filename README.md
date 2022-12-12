@@ -3,7 +3,7 @@ Repository for classification algorithms and scripts used for ZSL Monitoring and
 # Contents
    1.  [Data upload tips](#data-upload)
    2.  [Classification algorithms](#acoustic-classification-scripts) 
-   3.  [Validation scripts](#validation-scripts)
+   3.  [Validation scripts](#validation)
    4.  [Options to run the scripts](#script-options)
          * [Vertex AI](#running-notebooks-in-gcp-using-vertex-ai)
          * [Google Colab](#google-colab)
@@ -12,7 +12,7 @@ Repository for classification algorithms and scripts used for ZSL Monitoring and
 ## File hierarchy
 * Store raw data and outputs in 2 separate locations
 
-Raw data:
+**Raw data:**
 * Raw data upload follows the hierarchy and folder naming of:
    * {raw data bucket} = nr-acoustic-data
       * Subfolder = project+year e.g. [nr-2021]
@@ -22,7 +22,7 @@ Raw data:
             * SD card name [e.g. MSD-10]
                * .WAV files 
 
-Outputs:
+**Outputs:**
 * {Outputs bucket} = processing-outputs
    * Model folder [e.g. birdnet]
       * Project+year [e.g. nr-2021]
@@ -56,7 +56,7 @@ Manual validation of machine learning results is essential. We have scripts for 
    * For occupancy modeling would need to do this at intervals
    * Scripts selects all sites with species x classification above a chosen threshold, and then orders classifications for each site from highest score to lowest. Listen to the files until confirm presence for that site, then move on to the next site. Results output to a csv.
 
-# Script optons
+# Script options
 These scripts are all written in Python and can be run from the command line as python files, from Google Colab, or from Vertex AI in GCP.
 
 # Running notebooks in GCP using Vertex AI
@@ -105,9 +105,12 @@ Instructions for running notebooks within Vertex AI:
 
    ``` !gcloud storage cp -r 'gs://data-processing-scripts/batdetect_v3-master/' . ```
 
-# Google Colab #
+# Google colab
+Scripts can be opened and run from Colab by clicking on the Colab scripts within each model folder.
 
-Mounting GC bucket to Colab session:
+## Handy Google Colab commands #
+
+- Within the Colab notebook, you can mount the files stored in the Google Cloud Bucket using the following command (replacing 'bucket_name' with the name of your bucket, and project_ID with your project ID):<br/>
 
 ```!echo "deb http://packages.cloud.google.com/apt gcsfuse-bionic main" > /etc/apt/sources.list.d/gcsfuse.list
 !curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
@@ -120,6 +123,5 @@ from google.colab import auth
 auth.authenticate_user()
 PROJECT_ID = "zsl-acoustic-pipeline"
 
-!mountpoint -q /content/gcs_raw && echo "mounted" || mkdir -p gcs_raw; gcsfuse --implicit-dirs --rename-dir-limit=100 --disable-http2 --max-conns-per-host=100 "acoustic-data-raw" "/content/gcs_raw"
-!mountpoint -q /content/gcs_outputs && echo "mounted" || mkdir -p gcs_outputs; gcsfuse --implicit-dirs --rename-dir-limit=100 --disable-http2 --max-conns-per-host=100 "acoustic-processing-outputs" "/content/gcs_outputs"
+!mountpoint -q /content/gcs_raw && echo "mounted" || mkdir -p gcs_raw; gcsfuse --implicit-dirs --rename-dir-limit=100 --disable-http2 --max-conns-per-host=100 "bucket_name" "/content/gcs_raw"
 ```
